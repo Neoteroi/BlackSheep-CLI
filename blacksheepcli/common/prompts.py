@@ -25,7 +25,7 @@ def normalize_questions(extra_context, data):
 
 
 def get_questions(context, repo_dir: str):
-    questions_file_path = Path(repo_dir) / ".questions.json"
+    questions_file_path = Path(repo_dir) / "questions.json"
 
     if questions_file_path.exists():
         data = json.loads(questions_file_path.read_text("utf8"))

@@ -11,6 +11,12 @@ class Template:
     source: str
     description: str = ""
 
+    @property
+    def tag(self) -> str:
+        if "@" in self.source:
+            return self.source.split("@")[-1]
+        return ""
+
 
 class TemplateError(ClickException):
     """Base class for templates errors."""

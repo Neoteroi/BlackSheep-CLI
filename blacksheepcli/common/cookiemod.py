@@ -2,10 +2,10 @@
 Main entry point for the `cookiecutter` command, modified to support prompting the user
 with Python https://github.com/tmbo/questionary, to offer a better user experience.
 """
-from copy import copy
 import logging
 import os
 import sys
+from copy import copy
 
 from cookiecutter.config import get_user_config
 from cookiecutter.exceptions import InvalidModeException

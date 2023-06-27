@@ -12,10 +12,10 @@ def validate_name(value: Optional[str]):
 
 
 class ProjectManager:
-    def bootstrap(self, source: str, data=None):
+    def bootstrap(self, source: str, checkout: Optional[str] = None, data=None):
         # Lazy import, to not slow down the CLI start-up for every command
-        from blacksheepcli.common.cookiemonkey import cookiecutter
+        from blacksheepcli.common.cookiemod import cookiecutter
 
         # https://cookiecutter.readthedocs.io/en/stable/advanced/calling_from_python.html
 
-        cookiecutter(source, extra_context=data)
+        cookiecutter(source, checkout=checkout, extra_context=data)

@@ -3,6 +3,7 @@ This module provides the default implementation of TemplatesDataProvider, which 
 JSON file stored in a user's folder.
 """
 import json
+import os
 from dataclasses import asdict
 from pathlib import Path
 from typing import List, Union
@@ -42,7 +43,10 @@ class JSONTemplatesDataProvider(TemplatesDataProvider):
         self._file_path = (
             Path(file_path)
             if file_path is not None
-            else Path.home() / ".neoteroi" / "blacksheep-cli" / "templates.json"
+            else Path.home()
+            / ".neoteroi"
+            / os.environ.get("BLACKSHEEPCLI_FOLDER", "blacksheep-cli")
+            / "templates.json"
         )
         self._file_path.parent.mkdir(parents=True, exist_ok=True)
         self._ensure_default()

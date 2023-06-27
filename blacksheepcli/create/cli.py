@@ -4,7 +4,7 @@ import questionary
 from pathvalidate import is_valid_filename
 
 from blacksheepcli.common import click
-from blacksheepcli.create.domain import ProjectManager, validate_name
+from blacksheepcli.create.domain import ProjectManager
 from blacksheepcli.templates.cli import get_template_by_name, prompt_template
 
 
@@ -19,7 +19,7 @@ def print_instructions(destination: str):
     console.print("-- What's next:")
     console.print(f"\tcd {destination}")
 
-    console.print("\tpip install -r requirements.txt\n\tpython main.py")
+    console.print("\tpip install -r requirements.txt\n\tpython dev.py")
 
 
 @click.command(name="create")
@@ -72,6 +72,8 @@ def create_project(
         template_obj = prompt_template()
 
     assert destination is not None
-    ProjectManager().bootstrap(template_obj.source, {"project_name": name})
+    ProjectManager().bootstrap(
+        template_obj.source, template_obj.tag or None, {"project_name": name}
+    )
 
     print_instructions(destination)

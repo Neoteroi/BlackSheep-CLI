@@ -3,7 +3,6 @@ from json import dumps
 import questionary
 
 from blacksheepcli.common import click
-
 from blacksheepcli.templates.domain import (
     Template,
     TemplateNotFoundError,
@@ -74,7 +73,9 @@ def list_templates(source: bool):
 @click.option("-f", "--force", is_flag=True, help="Force update if the template exists")
 def add_template(name: str, source: str, description: str, force: bool):
     """
-    Add a template, by name and source, with optional description.
+    Add a template, by name and source, with optional description. If a specific tag
+    should be used for a Git repository, it can be specified at the end of the source,
+    using an "@" sign. Example: https://github.com/Neoteroi/BlackSheep-Foo@v2
 
     This command fails if a template exists with the same name. To overwrite an existing
     template, use the -f, or --force flag. Templates can later be used to scaffold new
@@ -82,9 +83,10 @@ def add_template(name: str, source: str, description: str, force: bool):
 
     Examples:
 
-    blacksheep templates add foo https://github.com/Neoteroi/BlackSheepFoo -d 'Some nice template! 🐃'
+    blacksheep templates add foo https://github.com/Neoteroi/BlackSheep-Foo
+        -d 'Some nice template! 🐃'
 
-    blacksheep templates add foo2 https://github.com/Neoteroi/BlackSheepFoo
+    blacksheep templates add foo2 https://github.com/Neoteroi/BlackSheepFoo@v2
     """
     manager = TemplatesManager()
     manager.add_template(name, source, description, force)
