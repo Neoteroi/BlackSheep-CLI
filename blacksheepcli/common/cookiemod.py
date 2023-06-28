@@ -95,7 +95,7 @@ def cookiecutter(
 
         questions = get_questions(extra_context, repo_dir)
         if questions:
-            from questionary import prompt as questionary_prompt
+            from questionary import unsafe_prompt as questionary_prompt
 
             answers = questionary_prompt(questions)
             extra_context.update(answers)
