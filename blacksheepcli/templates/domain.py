@@ -10,12 +10,14 @@ class Template:
     id: str
     source: str
     description: str = ""
+    tag: str = ""
+    folder: Optional[str] = None
 
-    @property
-    def tag(self) -> str:
-        if "@" in self.source:
-            return self.source.split("@")[-1]
-        return ""
+    def __post_init__(self):
+        if "$" in self.source:
+            tag = self.source.split("$")[-1]
+            self.tag = tag
+            self.source = self.source[: -(len(tag) + 1)]
 
 
 class TemplateError(ClickException):
@@ -64,15 +66,26 @@ class TemplatesManager:
     def __init__(self, provider: Optional[TemplatesDataProvider] = None) -> None:
         self._provider = provider or _get_default_data_provider()
 
-    def add_template(self, name: str, source: str, description: str, force: bool):
+    def add_template(
+        self,
+        name: str,
+        source: str,
+        folder: Optional[str],
+        description: str,
+        force: bool,
+    ):
         try:
             self.get_template_by_name(name)
         except TemplateNotFoundError:
             # good
-            self._provider.add_template(Template(name, source, description))
+            self._provider.add_template(
+                Template(name, source, description, folder=folder)
+            )
         else:
             if force:
-                self._provider.update_template(Template(name, source, description))
+                self._provider.update_template(
+                    Template(name, source, description, folder=folder)
+                )
             else:
                 raise TemplateConflictError(name)
 

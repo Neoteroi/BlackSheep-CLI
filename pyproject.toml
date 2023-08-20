@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "blacksheep-cli"
-version = "0.0.3"
+version = "0.0.4"
 authors = [{ name = "Roberto Prevato", email = "roberto.prevato@gmail.com" }]
 description = "🛠️ CLI to bootstrap BlackSheep projects"
 readme = "README.md"
@@ -24,7 +24,7 @@ keywords = [
     "CLI",
     "developer experience",
     "projects scaffolding",
-    "project templates"
+    "project templates",
 ]
 
 dependencies = [
@@ -35,7 +35,7 @@ dependencies = [
     "essentials-configuration[full]",
     "cookiecutter",
     "questionary",
-    "pathvalidate==3.0.0"
+    "pathvalidate==3.0.0",
 ]
 
 [project.scripts]

@@ -73,7 +73,10 @@ def create_project(
 
     assert destination is not None
     ProjectManager().bootstrap(
-        template_obj.source, template_obj.tag or None, {"project_name": name}
+        template_obj.source,
+        template_obj.tag or None,
+        template_obj.folder,
+        {"project_name": name},
     )
 
     print_instructions(destination)

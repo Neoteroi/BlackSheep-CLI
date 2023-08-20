@@ -84,6 +84,7 @@ class JSONTemplatesDataProvider(TemplatesDataProvider):
         current = next((value for value in templates if value.id == template.id), None)
         if current:
             current.source = template.source
+            current.tag = template.tag
             current.description = template.description
         else:
             current = template
@@ -105,6 +106,12 @@ class JSONTemplatesDataProvider(TemplatesDataProvider):
         except KeyError:
             return []
         return [
-            Template(item.get("id"), item.get("source"), item.get("description"))
+            Template(
+                item["id"],
+                item["source"],
+                item.get("description", ""),
+                item.get("tag", ""),
+                folder=item.get("folder"),
+            )
             for item in sorted(templates, key=lambda item: item["id"])
         ]

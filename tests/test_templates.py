@@ -18,10 +18,10 @@ def test_list_templates():
     "source,expected_tag",
     [
         ["~/projects/github/blacksheep-api", ""],
-        ["~/projects/github/blacksheep-api@v2", "v2"],
+        ["~/projects/github/blacksheep-api$v2", "v2"],
         ["https://github.com/Neoteroi/BlackSheep-API", ""],
-        ["https://github.com/Neoteroi/BlackSheep-API@", ""],
-        ["https://github.com/Neoteroi/BlackSheep-API@v2", "v2"],
+        ["https://github.com/Neoteroi/BlackSheep-API$", ""],
+        ["https://github.com/Neoteroi/BlackSheep-API$v2", "v2"],
     ],
 )
 def test_template_source_tag(source, expected_tag):
