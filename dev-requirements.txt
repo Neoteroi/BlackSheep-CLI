@@ -1,0 +1,15 @@
+blacksheep[full]
+cookiecutter>=2.1.1
+essentials-configuration
+Jinja2
+pydantic
+questionary
+rich
+rich-click
+uvicorn
+pytest
+pytest-cov
+isort
+flake8
+black
+pathvalidate

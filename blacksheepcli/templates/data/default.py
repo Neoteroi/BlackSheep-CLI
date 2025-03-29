@@ -2,6 +2,7 @@
 This module provides the default implementation of TemplatesDataProvider, which uses a
 JSON file stored in a user's folder.
 """
+
 import json
 import os
 from dataclasses import asdict

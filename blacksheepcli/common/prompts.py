@@ -3,8 +3,41 @@ This module provides support for an alternative way to query the user for input,
 questionary (as it gives better control and a better user experience than cookiecutter's
 built-in prompt support).
 """
+
 import json
 from pathlib import Path
+
+
+def _is_float(value):
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
+
+
+_TYPES = {
+    "int": {
+        "validate": lambda x: x.isdigit(),
+    },
+    "float": {
+        "validate": _is_float,
+    },
+}
+
+
+def _normalize_type(item):
+    """
+    Normalize the type to support more scenarios that are not supported by Python
+    questionary.
+
+    https://questionary.readthedocs.io/en/stable/
+    """
+    type_ = item.get("type")
+
+    if type_ in _TYPES:
+        item["type"] = "text"
+        item.update(_TYPES[type_])
 
 
 def _normalize_required(item):
@@ -39,6 +72,7 @@ def _normalize_when(item):
 
 def normalize_questions(extra_context, data):
     for item in data:
+        _normalize_type(item)
         _normalize_required(item)
         _normalize_when(item)
 

@@ -2,6 +2,7 @@
 Main entry point for the `cookiecutter` command, modified to support prompting the user
 with Python https://github.com/tmbo/questionary, to offer a better user experience.
 """
+
 import logging
 import os
 import sys

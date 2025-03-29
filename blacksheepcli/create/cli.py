@@ -40,10 +40,17 @@ def print_instructions(destination: str):
     help="Project template name.",
     required=False,
 )
+@click.option(
+    "--checkout",
+    "-c",
+    help="Optional tag or branch name to use with the project template.",
+    required=False,
+)
 def create_project(
     name: Optional[str] = None,
     destination: Optional[str] = None,
     template: Optional[str] = None,
+    checkout: Optional[str] = None,
 ):
     """
     Create a new project, with the given NAME, from a template.
@@ -52,7 +59,9 @@ def create_project(
 
         blacksheep create my-proj
 
-        blacksheep create my-proj --template basic
+        blacksheep create my-proj --template mvc
+
+        blacksheep create my-proj --template mvc --checkout v1.0.2
     """
     while not name:
         # unsafe_ask because we let Click handle user cancellation
@@ -74,7 +83,7 @@ def create_project(
     assert destination is not None
     ProjectManager().bootstrap(
         template_obj.source,
-        template_obj.tag or None,
+        checkout or template_obj.tag or None,
         template_obj.folder,
         {"project_name": name},
     )
