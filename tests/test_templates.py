@@ -4,8 +4,6 @@ from click.testing import CliRunner
 from blacksheepcli.cli.main import main
 from blacksheepcli.templates.domain import Template
 
-# from blacksheepcli.templates.data.default import JSONTemplatesDataProvider
-
 
 def test_list_templates():
     runner = CliRunner()

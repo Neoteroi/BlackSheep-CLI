@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.8, 3.9, "3.10", "3.11"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
 
     steps:
       - uses: actions/checkout@v1
@@ -35,8 +35,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -e .
-          pip install isort flake8 black pytest pytest-cov
+          pip install -r dev-requirements.txt
 
       - name: Run tests
         run: |
@@ -46,7 +45,6 @@ jobs:
         run: |
           echo "Running linters"
 
-          pip install black
           flake8 .
           isort --check-only . 2>&1
           black --check . 2>&1
@@ -67,18 +65,18 @@ jobs:
           rm -rf junit
           rm -rf deps
           pip install build
-        if: matrix.python-version == 3.11
+        if: matrix.python-version == 3.12
 
       - name: Create distribution package
         run: python -m build
-        if: matrix.python-version == 3.11
+        if: matrix.python-version == 3.12
 
       - name: Upload distribution package
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist
-        if: matrix.python-version == 3.11
+        if: matrix.python-version == 3.12
 
   publish:
     runs-on: ubuntu-latest
@@ -86,15 +84,15 @@ jobs:
     if: github.event_name == 'release'
     steps:
       - name: Download a distribution artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
 
-      - name: Use Python 3.11
+      - name: Use Python 3.12
         uses: actions/setup-python@v1
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Install dependencies
         run: |

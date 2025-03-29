@@ -3,6 +3,7 @@ This module provides support for an alternative way to query the user for input,
 questionary (as it gives better control and a better user experience than cookiecutter's
 built-in prompt support).
 """
+
 import json
 from pathlib import Path
 
