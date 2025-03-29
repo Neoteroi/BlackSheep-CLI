@@ -10,8 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add the `--checkout` option to the `create` command to support using specific
   branches and tags. Example:
   `blacksheep create my-proj2 --template mvc --checkout v1.0.2`.
-- Add support for `int` and `float` question types (to enable budget
-  validation).
+- Add support for `int` and `float` question types.
 - Add missing `__init__.py` files.
 - Update dependencies, apply latest formatting from `black`.
 - Workflow maintenance.
